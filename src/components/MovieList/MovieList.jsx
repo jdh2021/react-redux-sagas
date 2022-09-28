@@ -9,15 +9,18 @@ function MovieList() {
     const history = useHistory();
     // useDispatch to report an action to store
     const dispatch = useDispatch();
-    // useSelector to retrieve data, array of movie objects, from movies reducer
+    // useSelector to retrieve data (array of movie objects) from movies reducer
     const movies = useSelector(store => store.movies);
 
+    // useEffect to dispatch action 'FETCH_MOVIES' to store when MovieList component renders
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const goToSingleMovieDetail = (id) => {
-        console.log('in goToSingleMovieDetail');
+    const goToSingleMovieDetail = (movieId) => {
+        console.log('in goToSingleMovieDetail. movieId is', movieId);
+        // GET movie clicked on by dispatching action 'FETCH_SINGLE_MOVIE' to store
+        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId})
         history.push('/detail');
     }
 

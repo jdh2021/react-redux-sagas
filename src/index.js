@@ -13,7 +13,10 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
+    // watch for action 'FETCH_MOVIES', call function fetchAllMovies
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    // watch for action 'FETCH_SINGLE_MOVIE', call function fetchSingleMovie
+    yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie)
 }
 
 function* fetchAllMovies() {
@@ -21,12 +24,24 @@ function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
+        // after successful GET, dispatch action 'SET_MOVIES' (movies reducer)
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
     } catch {
         console.log('get all error');
-    }
-        
+    }       
+}
+
+function* fetchSingleMovie(action) {
+    // GET movie clicked on, payload is movieId
+    try {
+        const singleMovie = yield axios.get(`/api/movie/detail/${action.payload}`);
+        console.log('get by id:', singleMovie.data)
+        // after successful GET by id, dispatch action 'SET_SINGLE_MOVIE' (singleMovie reducer)
+        yield put ({ type: 'SET_SINGLE_MOVIE', payload: singleMovie.data})
+    } catch {
+        console.log('get by id error');
+    }     
 }
 
 // Create sagaMiddleware
@@ -41,6 +56,17 @@ const movies = (state = [], action) => {
             return state;
     }
 }
+
+// Used to store single movie clicked on from MovieList
+const singleMovie = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_SINGLE_MOVIE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
@@ -57,6 +83,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        singleMovie
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
