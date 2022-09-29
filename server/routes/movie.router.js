@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require('../modules/pool')
 
 router.get('/', (req, res) => {
+  console.log('in GET all movies');
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {
@@ -16,15 +17,15 @@ router.get('/', (req, res) => {
 });
 
 // GET by id
-router.get('/detail/:id', (req, res) => {
+router.get('/details/:id', (req, res) => {
   const movieId = req.params.id;
-  console.log('in GET /detail/:id. Id is:', movieId);
+  console.log('in GET movie/details/:id. Id is:', movieId);
   const queryText = `SELECT * FROM "movies" WHERE "id" =$1;`;
   pool.query(queryText, [movieId]).then(result => {
     console.log('GET by id success');
     res.send(result.rows[0]);
   }).catch(error => {
-    console.log('Error in GET by id');
+    console.log('Error in GET movie by id');
     res.sendStatus(500);
   })
 });
