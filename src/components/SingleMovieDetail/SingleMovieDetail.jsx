@@ -59,12 +59,12 @@ const SingleMovieDetail = () => {
                     <Typography variant="body2">
                         Genre(s):
                         {singleMovieGenres.map(genre =>
-                            <span key={genre.name}> {genre.name}</span>
+                            <span key={genre.name}> &#8226; {genre.name} </span>
                         )}
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                    <Button variant="contained" onClick={goToMovieList}>Back To List</Button>
+                    <Button variant="contained" onClick={goToMovieList} sx={{mb: 2}}>Back To List</Button>
                 </CardActions>
             </Card>
         </Grid>

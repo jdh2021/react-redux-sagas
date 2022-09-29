@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import { useHistory } from 'react-router-dom';
 
-import { Box } from '@mui/system';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
 
 function MovieList() {
     // use history to navigate between pages
@@ -31,32 +33,38 @@ function MovieList() {
         history.push(`/details/${movieId}`);
     }
 
-    return <Grid container justifyContent="center">
-        {movies.map(movie => {
-            return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
-                <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
-                    <CardContent>
-                        <Typography variant="body1">
-                            {movie.title}
-                        </Typography>
-                    </CardContent>
-                    <Box onClick={() => goToSingleMovieDetail(movie.id)}>
-                        <CardMedia
-                            sx={{
-                                width: 185,
-                                height: 273,
-                                display: "inline",
-                                mb: 4,
-                            }}
-                            component="img"
-                            image={movie.poster}
-                            alt={movie.title}
-                        />
-                    </Box>
-                </Card>
-            </Grid>)    
-        })}
-    </Grid>
+    return <div>
+        <Button variant="contained" size="small" sx={{ mb: 1.5 }} onClick={() => history.push('/movieadd')}>
+            <VideoCallIcon />
+        </Button>
+        <Grid container justifyContent="center">
+            {movies.map(movie => {
+                return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
+                    <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
+                        <CardContent>
+                            <Typography variant="body1">
+                                {movie.title}
+                            </Typography>
+                        </CardContent>
+                        <CardActionArea onClick={() => goToSingleMovieDetail(movie.id)}>
+                            <CardMedia
+                                sx={{
+                                    width: 185,
+                                    height: 273,
+                                    display: "inline",
+                                    mb: 4,
+                                }}
+                                component="img"
+                                image={movie.poster}
+                                alt={movie.title}
+                                onClick={() => goToSingleMovieDetail(movie.id)}
+                            />
+                        </CardActionArea>
+                    </Card>
+                </Grid>)
+            })}
+        </Grid>
+    </div>
 }
 
 export default MovieList;
