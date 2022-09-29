@@ -17,9 +17,9 @@ router.get('/', (req, res) => {
 });
 
 // GET by id
-router.get('/details/:id', (req, res) => {
-  const movieId = req.params.id;
-  console.log('in GET movie/details/:id. movieId is:', movieId);
+router.get('/details/:movieId', (req, res) => {
+  const movieId = req.params.movieId;
+  console.log('in GET movie/details/:movieId. Movie id is:', movieId);
   const queryText = `SELECT * FROM "movies" WHERE "id" =$1;`;
   pool.query(queryText, [movieId]).then(result => {
     console.log('GET movie by id success');

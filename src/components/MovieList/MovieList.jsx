@@ -25,15 +25,16 @@ function MovieList() {
 
     const goToSingleMovieDetail = (movieId) => {
         console.log('in goToSingleMovieDetail. movieId is', movieId);
-        // GET movie clicked on by dispatching action 'FETCH_SINGLE_MOVIE' to store
+        // GET movie clicked on and its genres by dispatching action 'FETCH_SINGLE_MOVIE' to store
         dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
-        history.push('/details');
+        // update route with dynamic piece of URL, movieId
+        history.push(`/details/${movieId}`);
     }
 
     return <Grid container justifyContent="center">
         {movies.map(movie => {
-            return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }}>
-                <Card key={movie.id} elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
+            return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
+                <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
                     <CardContent>
                         <Typography variant="body1">
                             {movie.title}

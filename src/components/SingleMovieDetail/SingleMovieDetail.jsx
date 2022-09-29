@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -20,6 +20,14 @@ const SingleMovieDetail = () => {
     const singleMovie = useSelector(store => store.singleMovie);
     // use selector to get movie clicked on from singleMovieGenres reducer
     const singleMovieGenres = useSelector(store => store.singleMovieGenres);
+    // useParams to access dynamic piece of URL, movieId, from /details/:movieId
+    const { movieId } = useParams();
+
+    // useEffect to dispatch action 'FETCH_SINGLE_MOVIE' when SingleMovieDetail component renders
+    useEffect(() => {
+        console.log('in useEffect - singleMovieDetail')
+        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
+    }, []);
 
     const goToMovieList = () => {
         history.push('/');
@@ -29,7 +37,7 @@ const SingleMovieDetail = () => {
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
         </Grid>
         <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
-            <Card key={singleMovie.id} elevation={4} sx={{backgroundColor: "#d6dde3"}}>
+            <Card key={singleMovie.id} elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
                 <CardHeader
                     title={singleMovie.title}
                 />

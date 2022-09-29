@@ -15,9 +15,9 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/details/:id', (req, res) => {
-  const movieId = req.params.id;
-  console.log('in GET genre/details/:id. movieId is:', movieId);
+router.get('/details/:movieId', (req, res) => {
+  const movieId = req.params.movieId;
+  console.log('in GET genre/details/:movieId. Movie id is:', movieId);
   // movies_genres is junction table linking genre_id and move_id
   // join genres and movies_genres to get genre names for movie by movie id
   const queryText = `SELECT "genres"."name" FROM "genres"
