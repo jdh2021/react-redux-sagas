@@ -14,9 +14,9 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
-    // watch for action 'FETCH_MOVIES', call function fetchAllMovies
+    // watch for action, call generator function
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    // watch for action 'FETCH_SINGLE_MOVIE', call function fetchSingleMovie
+    yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie)
 }
 
@@ -24,10 +24,22 @@ function* fetchAllMovies() {
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
-        console.log('get all:', movies.data);
+        console.log('get all movies:', movies.data);
         // after successful GET, dispatch action 'SET_MOVIES' to store data in movies reducer
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
+    } catch {
+        console.log('get all error');
+    }       
+}
+
+function* fetchAllGenres() {
+    // get all genres from the DB
+    try {
+        const genre = yield axios.get('/api/genre');
+        console.log('get all genres:', genre.data);
+        // after successful GET, dispatch action 'SET_GENRES' to store data in genres reducer
+        yield put({ type: 'SET_GENRES', payload: genre.data });
     } catch {
         console.log('get all error');
     }       
@@ -91,13 +103,59 @@ const singleMovieGenres = (state = [], action) => {
     }
 }
 
+// Used to store input title from AddMovieForm
+const inputTitle = (state = '', action) => {
+    switch (action.type) {
+        case 'DISPATCH_TITLE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+// Used to store input image from AddMovieForm
+const inputImage = (state = '', action) => {
+    switch (action.type) {
+        case 'DISPATCH_IMAGE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+// Used to store input description from AddMovieForm
+const inputDescription = (state = '', action) => {
+    switch (action.type) {
+        case 'DISPATCH_DESCRIPTION':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+// Used to store selected genre from AddMovieForm
+const selectedGenre = (state = '', action) => {
+    switch (action.type) {
+        case 'DISPATCH_GENRE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         singleMovie,
-        singleMovieGenres
+        singleMovieGenres,
+        inputTitle,
+        inputImage,
+        inputDescription,
+        selectedGenre,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

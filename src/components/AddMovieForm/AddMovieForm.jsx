@@ -1,9 +1,119 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 
 const AddMovieForm = () => {
-    return(<div></div>
-)};
+    // use history to navigate between pages
+    const history = useHistory();
+    // use dispatch to report action to store
+    const dispatch = useDispatch();
+    // useSelector to retrieve data (array of genres) from genre reducer for genre dropdown
+    const allGenres = useSelector(store => store.genres);
+    // useSelector to set default value for input fields from store
+    const inputTitle = useSelector(store => store.inputTitle);
+    const inputImage = useSelector(store => store.inputImage);
+    const inputDescription = useSelector(store => store.inputDescription);
+    const selectedGenre = useSelector(store => store.selectedGenre);
+
+    const dispatchTitle = (event) => {
+        dispatch({ type: 'DISPATCH_TITLE', payload: event.target.value });
+    }
+    const dispatchImage = (event) => {
+        dispatch({ type: 'DISPATCH_IMAGE', payload: event.target.value });
+    }
+    const dispatchDescription = (event) => {
+        dispatch({ type: 'DISPATCH_DESCRIPTION', payload: event.target.value });
+    }
+    const dispatchGenre = (event) => {
+        setGendreDropdown(event.target.value);
+        dispatch({ type: 'DISPATCH_GENRE', payload: event.target.value });
+    }
+
+    // useEffect to get all genres when AddMovieForm component renders
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GENRES' })
+    }, []);
+
+    // useState to show change in dropdown when selection made
+    const [genreDropdown, setGendreDropdown] = useState(selectedGenre);
+
+    const postMovie = () => {
+        console.log('in postMovie');
+    }
+
+    return <Grid container justifyContent="center">
+        <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
+        </Grid>
+        <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
+            <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
+                <CardHeader title="Add A Movie" />
+                <CardContent>
+                    <TextField
+                        label="Movie Title"
+                        size="small"
+                        margin="normal"
+                        fullWidth
+                        required
+                        variant="outlined"
+                        value={inputTitle}
+                        onChange={dispatchTitle}
+                    />
+                    <TextField
+                        label="Image URL for Poster"
+                        size="small"
+                        margin="normal"
+                        fullWidth
+                        required
+                        variant="outlined"
+                        value={inputImage}
+                        onChange={dispatchImage}
+                    />
+                    <TextField
+                        label="Movie Description"
+                        multiline
+                        margin="normal"
+                        fullWidth
+                        required
+                        rows={6}
+                        value={inputDescription}
+                        onChange={dispatchDescription}
+                    />
+                    <TextField
+                        label="Movie Genre"
+                        select
+                        size="small"
+                        margin="normal"
+                        fullWidth
+                        required
+                        value={genreDropdown}
+                        onChange={dispatchGenre}
+
+                    >
+                        {allGenres.map(genre =>
+                            <MenuItem key={genre.id} value={genre.id}>
+                                {genre.name}
+                            </MenuItem>
+                        )}
+                    </TextField>
+                </CardContent>
+                <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                    <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
+                    <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={postMovie}>Save</Button>
+                </CardActions>
+            </Card>
+        </Grid>
+        <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
+        </Grid>
+    </Grid>
+};
 
 export default AddMovieForm;

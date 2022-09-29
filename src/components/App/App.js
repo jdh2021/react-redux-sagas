@@ -19,7 +19,7 @@ function App() {
           <SingleMovieDetail />
         </Route>
         {/* Add Movie page */}
-        <Route path="/details/movieadd" exact>
+        <Route path="/movieadd" exact>
           <AddMovieForm />
         </Route>
       </Router>
