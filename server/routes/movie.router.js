@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
 // GET by id
 router.get('/details/:id', (req, res) => {
   const movieId = req.params.id;
-  console.log('in GET movie/details/:id. Id is:', movieId);
+  console.log('in GET movie/details/:id. movieId is:', movieId);
   const queryText = `SELECT * FROM "movies" WHERE "id" =$1;`;
   pool.query(queryText, [movieId]).then(result => {
-    console.log('GET by id success');
+    console.log('GET movie by id success');
     res.send(result.rows[0]);
   }).catch(error => {
     console.log('Error in GET movie by id');

@@ -15,4 +15,22 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/details/:id', (req, res) => {
+  const movieId = req.params.id;
+  console.log('in GET genre/details/:id. movieId is:', movieId);
+  // movies_genres is junction table linking genre_id and move_id
+  // join genres and movies_genres to get genre names for movie by movie id
+  const queryText = `SELECT "genres"."name" FROM "genres"
+                    JOIN "movies_genres" ON "genres"."id"="movies_genres"."genre_id"
+                    WHERE "movie_id" = $1;`;
+  pool.query(queryText, [movieId]).then(result => {
+      console.log('GET genre(s) by movie id success');
+      res.send(result.rows);
+    })
+    .catch(error => {
+      console.log('Error in GET genres by id:', error);
+      res.sendStatus(500)
+    })
+});
+
 module.exports = router;
