@@ -29,7 +29,7 @@ const SingleMovieDetail = () => {
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
         </Grid>
         <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
-            <Card key={singleMovie.id} elevation={4}>
+            <Card key={singleMovie.id} elevation={4} sx={{backgroundColor: "#d6dde3"}}>
                 <CardHeader
                     title={singleMovie.title}
                 />
