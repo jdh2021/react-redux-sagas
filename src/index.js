@@ -11,6 +11,7 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+
 // Create the rootSaga generator function
 function* rootSaga() {
     // watch for action 'FETCH_MOVIES', call function fetchAllMovies
@@ -57,8 +58,8 @@ const movies = (state = [], action) => {
     }
 }
 
-// Used to store single movie clicked on from MovieList
-const singleMovie = (state = [], action) => {
+// Used to store single movie object clicked on from MovieList
+const singleMovie = (state = {}, action) => {
     switch (action.type) {
         case 'SET_SINGLE_MOVIE':
             return action.payload;

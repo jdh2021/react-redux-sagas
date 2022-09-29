@@ -20,8 +20,8 @@ function MovieList() {
     const goToSingleMovieDetail = (movieId) => {
         console.log('in goToSingleMovieDetail. movieId is', movieId);
         // GET movie clicked on by dispatching action 'FETCH_SINGLE_MOVIE' to store
-        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId})
-        history.push('/detail');
+        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId});
+        history.push('/details');
     }
 
     return (
