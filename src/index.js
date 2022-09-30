@@ -168,8 +168,6 @@ const selectedGenre = (state = '', action) => {
     }
 }
 
-
-
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
@@ -180,7 +178,7 @@ const storeInstance = createStore(
         inputTitle,
         inputImage,
         inputDescription,
-        selectedGenre,
+        selectedGenre
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

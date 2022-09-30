@@ -134,7 +134,7 @@ const AddMovieForm = () => {
                     </TextField>
                 </CardContent>
                 <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                    <Button variant="contained" onClick={goToMovieList} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
+                    <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
                     <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={postMovie}>Save</Button>
                 </CardActions>
             </Card>
