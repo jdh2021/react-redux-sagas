@@ -18,7 +18,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie);
-    yield takeEvery('POST_MOVIE', postMovie)
+    yield takeEvery('POST_MOVIE', postMovie);
 }
 
 function* fetchAllMovies() {
@@ -65,6 +65,7 @@ function* fetchSingleMovie(action) {
 }
 
 function* postMovie(action) {
+    // POST movie added, payload is movie object
     try {
         yield axios.post('/api/movie', action.payload);
         console.log('movie to post:', action.payload)

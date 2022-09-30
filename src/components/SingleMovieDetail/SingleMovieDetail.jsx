@@ -18,7 +18,7 @@ const SingleMovieDetail = () => {
     const dispatch = useDispatch();
     // use selector to get movie clicked on from singleMovie reducer
     const singleMovie = useSelector(store => store.singleMovie);
-    // use selector to get movie clicked on from singleMovieGenres reducer
+    // use selector to get genre(s) of movie clicked on from singleMovieGenres reducer
     const singleMovieGenres = useSelector(store => store.singleMovieGenres);
     // useParams to access dynamic piece of URL, movieId, from /details/:movieId
     const { movieId } = useParams();
@@ -31,6 +31,11 @@ const SingleMovieDetail = () => {
 
     const goToMovieList = () => {
         history.push('/');
+    }
+
+    const editMovie = (movieId) => {
+        console.log('in editMovie. movieId is', movieId);
+        history.push(`/edit/${movieId}`);
     }
 
     return <Grid container justifyContent="center">
@@ -63,8 +68,9 @@ const SingleMovieDetail = () => {
                         )}
                     </Typography>
                 </CardContent>
-                <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                    <Button variant="contained" onClick={goToMovieList} sx={{mb: 2}}>Back To List</Button>
+                <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                    <Button variant="contained" onClick={goToMovieList} sx={{ mb: 2, ml: 2 }}>Back To List</Button>
+                    <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={() => editMovie(singleMovie.id)}>Edit</Button>
                 </CardActions>
             </Card>
         </Grid>

@@ -4,6 +4,7 @@ import MovieList from '../MovieList/MovieList'
 import SingleMovieDetail from '../SingleMovieDetail/SingleMovieDetail';
 import Header from '../Header/Header';
 import AddMovieForm from '../AddMovieForm/AddMovieForm';
+import EditMovieForm from '../EditMovieForm/EditMovieForm';
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
         {/* Add Movie page */}
         <Route path="/movieadd" exact>
           <AddMovieForm />
+        </Route>
+        {/* Edit Movie page */}
+        <Route path="/edit/:movieId" exact>
+          <EditMovieForm />
         </Route>
       </Router>
     </div>
