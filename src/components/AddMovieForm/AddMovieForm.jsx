@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
 
 const AddMovieForm = () => {
     // use history to navigate between pages
@@ -34,8 +35,14 @@ const AddMovieForm = () => {
         dispatch({ type: 'DISPATCH_DESCRIPTION', payload: event.target.value });
     }
     const dispatchGenre = (event) => {
-        setGendreDropdown(event.target.value);
+        setGenreDropdown(event.target.value);
         dispatch({ type: 'DISPATCH_GENRE', payload: event.target.value });
+    }
+
+    // on click of cancel or successful dispatch of 'POST_MOVIE', clears inputs and returns to MovieList
+    const goToMovieList = () => {
+        dispatch({ type: 'CLEAR_INPUT'});
+        history.push('/');
     }
 
     // useEffect to get all genres when AddMovieForm component renders
@@ -44,18 +51,40 @@ const AddMovieForm = () => {
     }, []);
 
     // useState to show change in dropdown when selection made
-    const [genreDropdown, setGendreDropdown] = useState(selectedGenre);
+    const [genreDropdown, setGenreDropdown] = useState(selectedGenre);
 
     const postMovie = () => {
         console.log('in postMovie');
+        if ( inputTitle === '' || inputImage === '' || inputDescription === '' || selectedGenre === '') {
+            alert('Please complete all fields to add a movie');
+            return;
+        } else { dispatch({  type: 'POST_MOVIE', 
+                    payload: {
+                        title: inputTitle,
+                        poster: inputImage,
+                        description: inputDescription,
+                        genre_id: selectedGenre
+                    }, 
+                    goToMovieList: goToMovieList});
+        }
     }
 
-    return <Grid container justifyContent="center">
+    return <div>
+        <Grid container justifyContent="center">
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
         </Grid>
         <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
             <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
-                <CardHeader title="Add A Movie" />
+            <Button variant="contained" 
+                    className="Button"
+                    disabled
+                    size="large" 
+                    sx={{ mt: 3, mb: 1.5 }}>
+                <VideoCallIcon />
+            </Button>
+            <Typography variant="h6">
+                Add A Movie
+            </Typography>
                 <CardContent>
                     <TextField
                         label="Movie Title"
@@ -96,7 +125,6 @@ const AddMovieForm = () => {
                         required
                         value={genreDropdown}
                         onChange={dispatchGenre}
-
                     >
                         {allGenres.map(genre =>
                             <MenuItem key={genre.id} value={genre.id}>
@@ -106,7 +134,7 @@ const AddMovieForm = () => {
                     </TextField>
                 </CardContent>
                 <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                    <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
+                    <Button variant="contained" onClick={goToMovieList} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
                     <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={postMovie}>Save</Button>
                 </CardActions>
             </Card>
@@ -114,6 +142,7 @@ const AddMovieForm = () => {
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
         </Grid>
     </Grid>
+</div>
 };
 
 export default AddMovieForm;

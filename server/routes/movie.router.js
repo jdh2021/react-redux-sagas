@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+// GET all movies
 router.get('/', (req, res) => {
   console.log('in GET all movies');
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 
 });
 
-// GET by id
+// GET movies by id
 router.get('/details/:movieId', (req, res) => {
   const movieId = req.params.movieId;
   console.log('in GET movie/details/:movieId. Movie id is:', movieId);
@@ -30,6 +31,7 @@ router.get('/details/:movieId', (req, res) => {
   })
 });
 
+// POST added movie
 router.post('/', (req, res) => {
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
@@ -53,6 +55,7 @@ router.post('/', (req, res) => {
       // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
       pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre_id]).then(result => {
         //Now that both are done, send back success!
+        console.log('POST success');
         res.sendStatus(201);
       }).catch(err => {
         // catch for second query

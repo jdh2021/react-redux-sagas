@@ -37,10 +37,10 @@ function MovieList() {
         <Button variant="contained" size="small" sx={{ mb: 1.5 }} onClick={() => history.push('/movieadd')}>
             <VideoCallIcon />
         </Button>
-        <Grid container justifyContent="center">
-            {movies.map(movie => {
+        <Grid container justifyContent="center" sx={{mb: 3}}>
+            { movies.map(movie => {
                 return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
-                    <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
+                    <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }} style={{ minHeight: 370 }}>
                         <CardContent>
                             <Typography variant="body1">
                                 {movie.title}
@@ -57,7 +57,6 @@ function MovieList() {
                                 component="img"
                                 image={movie.poster}
                                 alt={movie.title}
-                                onClick={() => goToSingleMovieDetail(movie.id)}
                             />
                         </CardActionArea>
                     </Card>

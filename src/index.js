@@ -17,7 +17,8 @@ function* rootSaga() {
     // watch for action, call generator function
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
-    yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie)
+    yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie);
+    yield takeEvery('POST_MOVIE', postMovie)
 }
 
 function* fetchAllMovies() {
@@ -30,6 +31,7 @@ function* fetchAllMovies() {
 
     } catch {
         console.log('get all error');
+        alert('There\'s an error in fetch all movies.');
     }       
 }
 
@@ -42,6 +44,7 @@ function* fetchAllGenres() {
         yield put({ type: 'SET_GENRES', payload: genre.data });
     } catch {
         console.log('get all error');
+        alert('There\'s an error in fetch all genres.');
     }       
 }
 
@@ -57,7 +60,20 @@ function* fetchSingleMovie(action) {
         yield put ({ type: 'SET_SINGLE_MOVIE_GENRES', payload: singleMovieGenres.data})
     } catch {
         console.log('get by id error');
+        alert('There\'s an error in fetch single movie.');
     }     
+}
+
+function* postMovie(action) {
+    try {
+        yield axios.post('/api/movie', action.payload);
+        console.log('movie to post:', action.payload)
+        // if POST successful, clear inputs and go to MovieList component where 'FETCH_MOVIES' is dispatched on render
+        action.goToMovieList();
+    } catch (error) {
+        console.log('Error posting element', error);
+        alert('There\'s an error in post added movie.');
+    }
 }
 
 // Create sagaMiddleware
@@ -108,6 +124,8 @@ const inputTitle = (state = '', action) => {
     switch (action.type) {
         case 'DISPATCH_TITLE':
             return action.payload;
+        case 'CLEAR_INPUT':
+            return '';
         default:
             return state;
     }
@@ -118,6 +136,8 @@ const inputImage = (state = '', action) => {
     switch (action.type) {
         case 'DISPATCH_IMAGE':
             return action.payload;
+        case 'CLEAR_INPUT':
+                return '';
         default:
             return state;
     }
@@ -128,6 +148,8 @@ const inputDescription = (state = '', action) => {
     switch (action.type) {
         case 'DISPATCH_DESCRIPTION':
             return action.payload;
+        case 'CLEAR_INPUT':
+                return '';
         default:
             return state;
     }
@@ -138,6 +160,8 @@ const selectedGenre = (state = '', action) => {
     switch (action.type) {
         case 'DISPATCH_GENRE':
             return action.payload;
+        case 'CLEAR_INPUT':
+                return '';
         default:
             return state;
     }
