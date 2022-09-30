@@ -14,10 +14,9 @@ router.get('/', (req, res) => {
       console.log('ERROR: Get all movies', err);
       res.sendStatus(500)
     })
-
 });
 
-// GET movies by id
+// GET movie by id
 router.get('/details/:movieId', (req, res) => {
   const movieId = req.params.movieId;
   console.log('in GET movie/details/:movieId. Movie id is:', movieId);
@@ -32,10 +31,10 @@ router.get('/details/:movieId', (req, res) => {
 });
 
 // PUT movie
-router.put('/edit', (req, res) => {
+router.put('/movieedit', (req, res) => {
   console.log('Movie to edit is:', req.body);
-  const queryText = `UPDATE "movies" SET "title" = $1,
-                    "poster" = $2, "description" = $3,
+  const queryText = `UPDATE "movies" SET "title" = $1, 
+                    "poster" = $2, "description" = $3
                     WHERE "id" = $4;`;
   pool.query(queryText, [req.body.title, req.body.poster, req.body.description, req.body.id]).then(result => {
     console.log('PUT movie success');
@@ -43,6 +42,29 @@ router.put('/edit', (req, res) => {
   }).catch(error => {
     console.log('Error in PUT movie');
     res.sendStatus(500);
+  })
+});
+
+// DELETE movie by id
+router.delete('/details/:movieId', (req, res) => {
+  const movieId = req.params.movieId;
+  console.log('in DELETE movie/details/:movieId. Movie id is:', movieId);
+  // first query deletes from junction table movies_genres
+  const junctionQueryText = `DELETE FROM "movies_genres" WHERE "movie_id" = $1;`;
+  pool.query(junctionQueryText, [movieId]).then(result => {
+    console.log('DELETE from movies_genres success');
+    // second query deletes from movies
+    const moviesQueryText = `DELETE FROM "movies" where "id" = $1;`;
+    pool.query(moviesQueryText, [movieId]).then(result => {
+      console.log('DELETE from movies success');
+      res.sendStatus(200);
+    }).catch(error => {
+      console.log('Error in DELETE from movies');
+      res.sendStatus(500);
+    })
+  }).catch(error => {
+      console.log('Error in DELETE from movies_genres');
+      res.sendStatus(500);
   })
 });
 

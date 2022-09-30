@@ -20,6 +20,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie);
     yield takeEvery('POST_MOVIE', postMovie);
     yield takeEvery('PUT_MOVIE', putMovie);
+    yield takeEvery('DELETE_SINGLE_MOVIE', deleteSingleMovie);
 }
 
 function* fetchAllMovies() {
@@ -65,6 +66,20 @@ function* fetchSingleMovie(action) {
     }     
 }
 
+function* deleteSingleMovie(action) {
+    // DELETE - movie clicked on, payload is movieId
+    try {
+        yield axios.delete(`/api/movie/details/${action.payload}`);
+        // if DELETE successful, clear go to MovieList component where 'FETCH_MOVIES' is dispatched on render
+        // clear data stored in singleMovie reducer and singleMovieGenres reducer
+        action.goToMovieList();
+        yield put ({ type:'CLEAR_SINGLE_MOVIE' });
+    } catch {
+        console.log('delete by id error');
+        alert('There\'s an error in delete single movie.');
+    }     
+}
+
 function* postMovie(action) {
     // POST - movie added, payload is movie object
     try {
@@ -82,7 +97,7 @@ function* putMovie(action) {
     // PUT - movie edited, payload is movie object
     try {
         console.log('movie to edit:', action.payload);
-        yield axios.put('/api/movie/edit', action.payload);
+        yield axios.put('/api/movie/movieedit', action.payload);
         // if PUT successful, go to MovieDetail component where 'FETCH_SINGLE_MOVIE' is dispatched on render
         action.goToMovieDetail();
     } catch (error) {
@@ -110,6 +125,8 @@ const singleMovie = (state = {}, action) => {
     switch (action.type) {
         case 'SET_SINGLE_MOVIE':
             return action.payload;
+        case 'CLEAR_SINGLE_MOVIE':
+            return {};
         default:
             return state;
     }
@@ -130,6 +147,8 @@ const singleMovieGenres = (state = [], action) => {
     switch (action.type) {
         case 'SET_SINGLE_MOVIE_GENRES':
             return action.payload;
+        case 'CLEAR_SINGLE_MOVIE':
+            return [];
         default:
             return state;
     }
@@ -153,7 +172,7 @@ const inputImage = (state = '', action) => {
         case 'DISPATCH_IMAGE':
             return action.payload;
         case 'CLEAR_INPUT':
-                return '';
+            return '';
         default:
             return state;
     }
@@ -165,7 +184,7 @@ const inputDescription = (state = '', action) => {
         case 'DISPATCH_DESCRIPTION':
             return action.payload;
         case 'CLEAR_INPUT':
-                return '';
+            return '';
         default:
             return state;
     }
@@ -177,7 +196,7 @@ const selectedGenre = (state = '', action) => {
         case 'DISPATCH_GENRE':
             return action.payload;
         case 'CLEAR_INPUT':
-                return '';
+            return '';
         default:
             return state;
     }

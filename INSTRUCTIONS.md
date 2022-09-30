@@ -64,8 +64,8 @@ As one of your last projects, it's possible you will be sharing this with employ
 - [X] Invest some time in styling it up!
     - [X] Research cards for your movie posters on the list page
     - [X] Research grids for your movie posters on the Movie List page
-- [ ] Commit your code frequently! You should have at 15+ commits on a project of this size. Use branches to help break down your features.
-- [ ] Comment your code.
+- [X] Commit your code frequently! You should have at 15+ commits on a project of this size. Use branches to help break down your features.
+- [X] Comment your code.
 - [ ] Update this README to include a description of the project in your own words.
 
 ---
@@ -83,7 +83,7 @@ This should show:
 
 The Add Movie page should have the buttons:
 
-- [X] `Cancel` button, which should bring the user to the Home/List Page
+- [X] `Back` button, which should bring the user to the Home/List Page
 - [X] `Save` button, which should save these inputs in the database and bring the user to the Home/List Page (which now has the new movie)
 
 **Base functionality does not require being able to select more than one genre for a new movie**
@@ -107,7 +107,7 @@ This new page should show:
 
 The edit page should have the buttons:
 
-- [X] `Cancel` button, which should bring the user to the Details Page
+- [X] `Back` button, which should bring the user to the Details Page
 - [X] `Save` button, which should update the title and description in the database and bring the user to the Details Page
 
 ### Other Ideas

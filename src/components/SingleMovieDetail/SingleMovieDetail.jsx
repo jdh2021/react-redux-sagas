@@ -29,14 +29,28 @@ const SingleMovieDetail = () => {
         dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
     }, []);
 
+    const goToEditMovie = () => {
+        console.log('in editMovie. movieId is', movieId);
+        history.push(`/movieedit/${movieId}`);
+    }
+
+    const confirmDelete = () => {
+        console.log('in confirmDelete');
+        if (window.confirm('Do you want to delete this movie?')) {
+            deleteFeedback();
+        }
+    }
+
+    // passed as part of payload to deleteFeedback, routes to MovieList upon successful DELETE
     const goToMovieList = () => {
         history.push('/');
     }
 
-    const editMovie = (movieId) => {
-        console.log('in editMovie. movieId is', movieId);
-        history.push(`/edit/${movieId}`);
-    }
+    // dispatches action to store with payload of movieId and function goToMovieList
+    const deleteFeedback = () => {
+        console.log('in deleteFeedback. movieId is:', movieId);
+        dispatch({ type: 'DELETE_SINGLE_MOVIE', payload: movieId, goToMovieList : goToMovieList });
+    };
 
     return <Grid container justifyContent="center">
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
@@ -69,8 +83,9 @@ const SingleMovieDetail = () => {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                    <Button variant="contained" onClick={goToMovieList} sx={{ mb: 2, ml: 2 }}>Back To List</Button>
-                    <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={() => editMovie(singleMovie.id)}>Edit</Button>
+                    <Button variant="contained" onClick={goToMovieList} sx={{ mb: 2, ml: 2 }}>Back</Button>
+                    <Button variant="contained" onClick={confirmDelete} sx={{ mb: 2, ml: 2 }}>Delete</Button>
+                    <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={goToEditMovie}>Edit</Button>
                 </CardActions>
             </Card>
         </Grid>

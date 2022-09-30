@@ -24,7 +24,7 @@ function App() {
           <AddMovieForm />
         </Route>
         {/* Edit Movie page */}
-        <Route path="/edit/:movieId" exact>
+        <Route path="/movieedit/:movieId" exact>
           <EditMovieForm />
         </Route>
       </Router>

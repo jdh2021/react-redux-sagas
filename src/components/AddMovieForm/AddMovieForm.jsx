@@ -35,14 +35,7 @@ const AddMovieForm = () => {
         dispatch({ type: 'DISPATCH_DESCRIPTION', payload: event.target.value });
     }
     const dispatchGenre = (event) => {
-        setGenreDropdown(event.target.value);
         dispatch({ type: 'DISPATCH_GENRE', payload: event.target.value });
-    }
-
-    // on click of cancel or successful dispatch of 'POST_MOVIE', clears inputs and returns to MovieList
-    const goToMovieList = () => {
-        dispatch({ type: 'CLEAR_INPUT'});
-        history.push('/');
     }
 
     // useEffect to get all genres when AddMovieForm component renders
@@ -50,13 +43,16 @@ const AddMovieForm = () => {
         dispatch({ type: 'FETCH_GENRES' })
     }, []);
 
-    // useState to show change in dropdown when selection made
-    const [genreDropdown, setGenreDropdown] = useState(selectedGenre);
+    // passed as part of payload to postMovie, routes to MovieList upon successful POST
+    const goToMovieList = () => {
+        dispatch({ type: 'CLEAR_INPUT'});
+        history.push('/');
+    }
 
     const postMovie = () => {
         console.log('in postMovie');
         if ( inputTitle === '' || inputImage === '' || inputDescription === '' || selectedGenre === '') {
-            alert('Please complete all fields to add a movie');
+            alert('Please complete all fields to add a movie.');
             return;
         } else { dispatch({  type: 'POST_MOVIE', 
                     payload: {
@@ -123,7 +119,7 @@ const AddMovieForm = () => {
                         margin="normal"
                         fullWidth
                         required
-                        value={genreDropdown}
+                        value={selectedGenre}
                         onChange={dispatchGenre}
                     >
                         {allGenres.map(genre =>
@@ -134,7 +130,8 @@ const AddMovieForm = () => {
                     </TextField>
                 </CardContent>
                 <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                    <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
+                    <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Back</Button>
+                    <Button variant="contained" onClick={() => dispatch({type: 'CLEAR_INPUT'})} sx={{ mb: 2, ml: 2 }}>Clear</Button>
                     <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={postMovie}>Save</Button>
                 </CardActions>
             </Card>
