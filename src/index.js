@@ -19,6 +19,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie);
     yield takeEvery('POST_MOVIE', postMovie);
+    yield takeEvery('PUT_MOVIE', putMovie);
 }
 
 function* fetchAllMovies() {
@@ -49,7 +50,7 @@ function* fetchAllGenres() {
 }
 
 function* fetchSingleMovie(action) {
-    // GET movie clicked on, payload is movieId
+    // GET - movie clicked on, payload is movieId
     try {
         const singleMovie = yield axios.get(`/api/movie/details/${action.payload}`);
         const singleMovieGenres = yield axios.get(`/api/genre/details/${action.payload}`);
@@ -65,7 +66,7 @@ function* fetchSingleMovie(action) {
 }
 
 function* postMovie(action) {
-    // POST movie added, payload is movie object
+    // POST - movie added, payload is movie object
     try {
         yield axios.post('/api/movie', action.payload);
         console.log('movie to post:', action.payload)
@@ -76,6 +77,20 @@ function* postMovie(action) {
         alert('There\'s an error in post added movie.');
     }
 }
+
+function* putMovie(action) {
+    // PUT - movie edited, payload is movie object
+    try {
+        console.log('movie to edit:', action.payload);
+        yield axios.put('/api/movie/edit', action.payload);
+        // if PUT successful, go to MovieDetail component where 'FETCH_SINGLE_MOVIE' is dispatched on render
+        action.goToMovieDetail();
+    } catch (error) {
+        console.log('Error posting element', error);
+        alert('There\'s an error in update added movie.');
+    }
+}
+
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

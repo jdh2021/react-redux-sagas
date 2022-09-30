@@ -31,6 +31,21 @@ router.get('/details/:movieId', (req, res) => {
   })
 });
 
+// PUT movie
+router.put('/edit', (req, res) => {
+  console.log('Movie to edit is:', req.body);
+  const queryText = `UPDATE "movies" SET "title" = $1,
+                    "poster" = $2, "description" = $3,
+                    WHERE "id" = $4;`;
+  pool.query(queryText, [req.body.title, req.body.poster, req.body.description, req.body.id]).then(result => {
+    console.log('PUT movie success');
+    res.send(result.rows[0]);
+  }).catch(error => {
+    console.log('Error in PUT movie');
+    res.sendStatus(500);
+  })
+});
+
 // POST added movie
 router.post('/', (req, res) => {
   console.log(req.body);

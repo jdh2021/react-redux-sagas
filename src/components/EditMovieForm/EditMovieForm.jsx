@@ -34,6 +34,18 @@ const EditMovieForm = () => {
 
     const editMovie = () => {
         console.log('in editMovie');
+        if ( editTitle === '' || editImage === '' || editDescription === '') {
+            alert('Please enter information for all fields.');
+            return;
+        } else { dispatch({  type: 'PUT_MOVIE', 
+                    payload: {
+                        id: singleMovie.id,
+                        title: editTitle,
+                        poster: editImage,
+                        description: editDescription,
+                    }, 
+                    goToMovieDetail: goToMovieDetail});
+        }
     }
 
     const goToMovieDetail = () => {
