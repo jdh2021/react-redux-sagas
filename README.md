@@ -2,7 +2,7 @@
 
 ## Description
 
-Movies Saga is an app that catalogs a user's favorite movies and showcases their title, poster image, description, and genre(s). Built with React.js and Redux-Saga, Movies Saga also allows a user to add, update, and delete movies. Movie data is stored in an SQL database. 
+Movies Saga is an app that catalogs a user's favorite movies and showcases their title, poster, description, and genre(s). Built with React.js and Redux-Saga, Movies Saga also allows a user to add, update, and delete movies from the collection. Movie data is stored in an SQL database. 
 
 ## Demo
 
@@ -26,9 +26,9 @@ Movies Saga is an app that catalogs a user's favorite movies and showcases their
 ## Usage
 
 1. Click a movie poster to see details about that movie including its description and genre(s). 
-2. Within details, edit a movie by clicking the `EDIT` button. You can edit the title, image URL, and movie description. Once complete, click `SAVE` and you'll be routed back to details for that movie to see your edits in effect. If you decide not to edit the movie, click `CANCEL`.
-3. Within details, delete a movie by clicking the `DELETE` button. You'll be prompted to confirm before deleting and then routed back to the list of movies.
-4. To add a movie, click the blue video button at the top of the page. You'll be routed to a form where you can enter the new movie's title, poster URL, and description. Use the dropdown to select the movie's genre. Click `SAVE` to add the movie. Click `BACK` to return to the list of the movies but preserve the information already entered in the form. Click `CLEAR` to clear the data entered in the form. 
+2. Within details, edit a movie by clicking the `EDIT` button. You can edit the title, image URL, and description. Once complete, click `SAVE` and you'll be routed back to details for that movie to see your edits in effect. If you decide not to edit the movie, click `CANCEL`.
+3. Within details, delete a movie by clicking the `DELETE` button. You'll be prompted to confirm before deleting and then routed back to the gallery of movies.
+4. Add a movie by clicking the blue video button at the top of the movie gallery page. You'll be routed to a form where you can enter the new movie's title, image URL for poster, and description. Use the dropdown to select the movie's genre. Click `SAVE` to add the movie. Click `BACK` to return to the list of the movies but preserve the information already entered in the form. Click `CLEAR` to clear the data entered in the form. 
 
 ## Built With
 
