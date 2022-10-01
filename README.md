@@ -7,6 +7,7 @@ Movies Saga is an app that catalogs a user's favorite movies and showcases their
 ## Demo
 
 <p align ="center">
+    <img src="movie-saga.gif" />
 </p>
 
 ### Prerequisites

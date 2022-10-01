@@ -2,23 +2,13 @@
   text-align: center;
 }
 
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-}
-
-h1 {
-  color: rgb(0, 0, 99)
-}
-
 body {
   background-color: rgb(243, 243, 243);
 }
 
-.App-intro {
-  font-size: large;
+h1 {
+  color: rgb(0, 0, 99);
+  font-family: 'Kanit', sans-serif;
 }
 
 @keyframes App-logo-spin {

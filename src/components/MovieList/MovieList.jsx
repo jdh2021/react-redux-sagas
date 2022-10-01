@@ -42,7 +42,7 @@ function MovieList() {
                 return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
                     <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }} style={{ minHeight: 370 }}>
                         <CardContent>
-                            <Typography variant="body1">
+                            <Typography>
                                 {movie.title}
                             </Typography>
                         </CardContent>
