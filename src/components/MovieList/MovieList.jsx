@@ -15,20 +15,18 @@ import VideoCallIcon from '@mui/icons-material/VideoCall';
 function MovieList() {
     // use history to navigate between pages
     const history = useHistory();
-    // useDispatch to report an action to store
+    // use dispatch to report an action to store
     const dispatch = useDispatch();
-    // useSelector to retrieve data (array of movie objects) from movies reducer
+    // use selector to retrieve data (array of movie objects) from movies reducer
     const movies = useSelector(store => store.movies);
 
-    // useEffect to dispatch action 'FETCH_MOVIES' to store when MovieList component renders
+    // useEffect to dispatch action 'FETCH_MOVIES' to store when MovieList renders
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
     const goToSingleMovieDetail = (movieId) => {
-        console.log('in goToSingleMovieDetail. movieId is', movieId);
-        // GET movie clicked on and its genres by dispatching action 'FETCH_SINGLE_MOVIE' to store
-        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
+        console.log('in goToSingleMovieDetail. movieId to view is', movieId);
         // update route with dynamic piece of URL, movieId
         history.push(`/details/${movieId}`);
     }
@@ -39,7 +37,7 @@ function MovieList() {
         </Button>
         <Grid container justifyContent="center" sx={{mb: 3}}>
             { movies.map(movie => {
-                return (<Grid item xs={8} sm={6} md={4} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
+                return (<Grid item xs={6} sm={4} md={3} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
                     <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }} style={{ minHeight: 370 }}>
                         <CardContent>
                             <Typography>
@@ -52,7 +50,6 @@ function MovieList() {
                                     width: 185,
                                     height: 273,
                                     display: "inline",
-                                    mb: 4,
                                 }}
                                 component="img"
                                 image={movie.poster}

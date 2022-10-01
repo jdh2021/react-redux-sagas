@@ -5,7 +5,7 @@ const pool = require('../modules/pool')
 // GET all movies
 router.get('/', (req, res) => {
   console.log('in GET all movies');
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
+  const query = `SELECT * FROM movies ORDER BY LOWER("title") ASC`;
   pool.query(query)
     .then( result => {
       res.send(result.rows);

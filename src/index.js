@@ -11,7 +11,6 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
-
 // Create the rootSaga generator function
 function* rootSaga() {
     // watch for action, call generator function
@@ -24,7 +23,7 @@ function* rootSaga() {
 }
 
 function* fetchAllMovies() {
-    // get all movies from the DB
+    // GET ALL - movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all movies:', movies.data);
@@ -38,7 +37,7 @@ function* fetchAllMovies() {
 }
 
 function* fetchAllGenres() {
-    // get all genres from the DB
+    // GET ALL - genres from the DB
     try {
         const genre = yield axios.get('/api/genre');
         console.log('get all genres:', genre.data);
@@ -51,13 +50,13 @@ function* fetchAllGenres() {
 }
 
 function* fetchSingleMovie(action) {
-    // GET - movie clicked on, payload is movieId
+    // GET by id - movie, payload is movieId
     try {
         const singleMovie = yield axios.get(`/api/movie/details/${action.payload}`);
         const singleMovieGenres = yield axios.get(`/api/genre/details/${action.payload}`);
-        console.log('get movie by id:', singleMovie.data)
+        console.log('get movie by id:', singleMovie.data);
         console.log('get genres by id:', singleMovieGenres.data);
-        // after successful GET by id, dispatch actions to store data in singleMovie and singleMovieGenres reducers
+        // after successful GET, dispatch actions to store data in singleMovie and singleMovieGenres reducers
         yield put ({ type: 'SET_SINGLE_MOVIE', payload: singleMovie.data})
         yield put ({ type: 'SET_SINGLE_MOVIE_GENRES', payload: singleMovieGenres.data})
     } catch {
@@ -67,10 +66,10 @@ function* fetchSingleMovie(action) {
 }
 
 function* deleteSingleMovie(action) {
-    // DELETE - movie clicked on, payload is movieId
+    // DELETE by id - movie, payload is movieId
     try {
         yield axios.delete(`/api/movie/details/${action.payload}`);
-        // if DELETE successful, clear go to MovieList component where 'FETCH_MOVIES' is dispatched on render
+        // if DELETE successful, go to MovieList where 'FETCH_MOVIES' is dispatched on render
         // clear data stored in singleMovie reducer and singleMovieGenres reducer
         action.goToMovieList();
         yield put ({ type:'CLEAR_SINGLE_MOVIE' });
@@ -83,9 +82,9 @@ function* deleteSingleMovie(action) {
 function* postMovie(action) {
     // POST - movie added, payload is movie object
     try {
+        console.log('movie to post:', action.payload);
         yield axios.post('/api/movie', action.payload);
-        console.log('movie to post:', action.payload)
-        // if POST successful, clear inputs and go to MovieList component where 'FETCH_MOVIES' is dispatched on render
+        // if POST successful, clear inputs and go to MovieList where 'FETCH_MOVIES' is dispatched on render
         action.goToMovieList();
     } catch (error) {
         console.log('Error posting element', error);
@@ -98,14 +97,13 @@ function* putMovie(action) {
     try {
         console.log('movie to edit:', action.payload);
         yield axios.put('/api/movie/movieedit', action.payload);
-        // if PUT successful, go to MovieDetail component where 'FETCH_SINGLE_MOVIE' is dispatched on render
+        // if PUT successful, go to SingleMovieDetail where 'FETCH_SINGLE_MOVIE' is dispatched on render
         action.goToMovieDetail();
     } catch (error) {
         console.log('Error posting element', error);
         alert('There\'s an error in update added movie.');
     }
 }
-
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

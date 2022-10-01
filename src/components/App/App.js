@@ -5,6 +5,7 @@ import SingleMovieDetail from '../SingleMovieDetail/SingleMovieDetail';
 import Header from '../Header/Header';
 import AddMovieForm from '../AddMovieForm/AddMovieForm';
 import EditMovieForm from '../EditMovieForm/EditMovieForm';
+
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -41,7 +42,7 @@ function App() {
         </Route>
       </Router>
     </div>
-    </ThemeProvider>
+  </ThemeProvider>
   );
 }
 

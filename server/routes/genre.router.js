@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+// GET ALL genres
 router.get('/', (req, res) => {
   // Add query to get all genres
   console.log('in GET all genres');
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
     })
 });
 
+// GET genres by movie id
 router.get('/details/:movieId', (req, res) => {
   const movieId = req.params.movieId;
   console.log('in GET genre/details/:movieId. Movie id is:', movieId);

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -18,20 +18,21 @@ const EditMovieForm = () => {
     const dispatch = useDispatch();
     // use selector to get movie clicked on from singleMovie reducer
     const singleMovie = useSelector(store => store.singleMovie);
-    // useParams to access dynamic piece of URL, movieId, from /edit/:movieId
+    // use params to access dynamic piece of URL, movieId, from /movieedit/:movieId
     const { movieId } = useParams();
+
+    // useEffect to dispatch 'FETCH_SINGLE_MOVIE' when EditMovieForm renders
+    useEffect(() => {
+        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
+    }, []);
 
     // useState to set initial value of input fields to values from store
     const [editTitle, setEditTitle] = useState(singleMovie.title);
     const [editImage, setEditImage] = useState(singleMovie.poster);
     const [editDescription, setEditDescription] = useState(singleMovie.description);
 
-    // useEffect to fetch movie to edit
-    useEffect(() => {
-        console.log('in useEffect - edit movie');
-        dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
-    }, []);
-
+    // checks for undefined or empty fields in form
+    // dispatches 'PUT_MOVIE' with payload of edited movie object and function goToMovieDetail
     const editMovie = () => {
         console.log('in editMovie');
         if (( editTitle === undefined ) || ( editImage === undefined ) || ( editDescription === undefined ) ||

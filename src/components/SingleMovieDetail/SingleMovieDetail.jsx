@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
@@ -23,14 +23,14 @@ const SingleMovieDetail = () => {
     // useParams to access dynamic piece of URL, movieId, from /details/:movieId
     const { movieId } = useParams();
 
-    // useEffect to dispatch action 'FETCH_SINGLE_MOVIE' when SingleMovieDetail component renders
+    // useEffect to dispatch action 'FETCH_SINGLE_MOVIE' when SingleMovieDetail renders
     useEffect(() => {
-        console.log('in useEffect - singleMovieDetail')
         dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: movieId });
     }, []);
 
     const goToEditMovie = () => {
-        console.log('in editMovie. movieId is', movieId);
+        console.log('in goToEditMovie. movieId to edit is', movieId);
+        // update route with dynamic piece of URL, movieId
         history.push(`/movieedit/${movieId}`);
     }
 
@@ -56,7 +56,7 @@ const SingleMovieDetail = () => {
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
         </Grid>
         <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
-            <Card key={singleMovie.id} elevation={4} sx={{ backgroundColor: "#d6dde3"}}>
+            <Card key={singleMovie.id} elevation={4} sx={{ backgroundColor: "#d6dde3", mb: 3}}>
                 <CardHeader
                     title={singleMovie.title}
                 />
