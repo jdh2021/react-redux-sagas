@@ -1,7 +1,7 @@
 
 const Header = () => {
     return(<header>
-        <h1>The Movies Saga!</h1>
+        <h1>Movies Saga!</h1>
         </header>
 )};
 

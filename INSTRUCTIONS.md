@@ -107,7 +107,7 @@ This new page should show:
 
 The edit page should have the buttons:
 
-- [X] `Back` button, which should bring the user to the Details Page
+- [X] `Cancel` button, which should bring the user to the Details Page
 - [X] `Save` button, which should update the title and description in the database and bring the user to the Details Page
 
 ### Other Ideas

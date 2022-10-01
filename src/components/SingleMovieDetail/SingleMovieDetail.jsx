@@ -41,7 +41,7 @@ const SingleMovieDetail = () => {
         }
     }
 
-    // passed as part of payload to deleteFeedback, routes to MovieList upon successful DELETE
+    // passed as part of payload to deleteFeedback, routes to MovieList upon successful delete
     const goToMovieList = () => {
         history.push('/');
     }

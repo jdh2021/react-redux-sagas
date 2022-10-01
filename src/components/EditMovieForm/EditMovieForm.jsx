@@ -71,6 +71,7 @@ const EditMovieForm = () => {
                     </Typography>
                         <CardContent>
                             <TextField
+                                label="Title"
                                 size="small"
                                 margin="normal"
                                 fullWidth
@@ -80,6 +81,7 @@ const EditMovieForm = () => {
                                 onChange={(event) => setEditTitle(event.target.value)}
                             />
                             <TextField
+                                label="Image URL for Poster"
                                 size="small"
                                 margin="normal"
                                 fullWidth
@@ -89,6 +91,7 @@ const EditMovieForm = () => {
                                 onChange={(event) => setEditImage(event.target.value)}
                             />
                             <TextField
+                                label="Movie Description"
                                 multiline
                                 margin="normal"
                                 fullWidth
