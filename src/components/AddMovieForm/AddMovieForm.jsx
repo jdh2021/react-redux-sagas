@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -49,6 +49,7 @@ const AddMovieForm = () => {
         history.push('/');
     }
 
+    // dispatches 'POST_MOVIE' if inputs aren't empty, payload is movie object
     const postMovie = () => {
         console.log('in postMovie');
         if ( inputTitle === '' || inputImage === '' || inputDescription === '' || selectedGenre === '') {

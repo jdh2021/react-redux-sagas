@@ -30,7 +30,7 @@ function* fetchAllMovies() {
         // after successful GET, dispatch action 'SET_MOVIES' to store data in movies reducer
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
-    } catch {
+    } catch (error) {
         console.log('get all error');
         alert('There\'s an error in fetch all movies.');
     }       
@@ -43,7 +43,7 @@ function* fetchAllGenres() {
         console.log('get all genres:', genre.data);
         // after successful GET, dispatch action 'SET_GENRES' to store data in genres reducer
         yield put({ type: 'SET_GENRES', payload: genre.data });
-    } catch {
+    } catch (error) {
         console.log('get all error');
         alert('There\'s an error in fetch all genres.');
     }       
@@ -57,9 +57,9 @@ function* fetchSingleMovie(action) {
         console.log('get movie by id:', singleMovie.data);
         console.log('get genres by id:', singleMovieGenres.data);
         // after successful GET, dispatch actions to store data in singleMovie and singleMovieGenres reducers
-        yield put ({ type: 'SET_SINGLE_MOVIE', payload: singleMovie.data})
-        yield put ({ type: 'SET_SINGLE_MOVIE_GENRES', payload: singleMovieGenres.data})
-    } catch {
+        yield put ({ type: 'SET_SINGLE_MOVIE', payload: singleMovie.data});
+        yield put ({ type: 'SET_SINGLE_MOVIE_GENRES', payload: singleMovieGenres.data});
+    } catch (error) {
         console.log('get by id error');
         alert('There\'s an error in fetch single movie.');
     }     
@@ -73,7 +73,7 @@ function* deleteSingleMovie(action) {
         // clear data stored in singleMovie reducer and singleMovieGenres reducer
         action.goToMovieList();
         yield put ({ type:'CLEAR_SINGLE_MOVIE' });
-    } catch {
+    } catch (error) {
         console.log('delete by id error');
         alert('There\'s an error in delete single movie.');
     }     
