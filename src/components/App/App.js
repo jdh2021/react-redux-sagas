@@ -1,4 +1,4 @@
-import {HashRouter as Router, Route} from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import MovieList from '../MovieList/MovieList'
 import SingleMovieDetail from '../SingleMovieDetail/SingleMovieDetail';
@@ -11,7 +11,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 const fontTheme = createTheme({
   typography: {
-      fontFamily: ['Kanit', 'sans serif'].join(',')
+    fontFamily: ['Kanit', 'sans serif'].join(',')
   },
   palette: {
     text: {
@@ -23,8 +23,8 @@ const fontTheme = createTheme({
 function App() {
   return (<ThemeProvider theme={fontTheme}>
     <div className="App">
-      <Router>  
-        <Header />      
+      <Router>
+        <Header />
         <Route path="/" exact>
           <MovieList />
         </Route>

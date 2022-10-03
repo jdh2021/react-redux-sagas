@@ -1,7 +1,8 @@
 const Header = () => {
-    return(<header>
+    return (<header>
         <h1>Movies Saga!</h1>
-        </header>
-)};
+    </header>
+    )
+};
 
 export default Header;

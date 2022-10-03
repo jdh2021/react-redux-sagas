@@ -35,18 +35,21 @@ const EditMovieForm = () => {
     // dispatches 'PUT_MOVIE' with payload of edited movie object and function goToMovieDetail
     const editMovie = () => {
         console.log('in editMovie');
-        if (( editTitle === undefined ) || ( editImage === undefined ) || ( editDescription === undefined ) ||
-            ( editTitle === '') || ( editImage === '' ) || ( editDescription === undefined )) {
+        if ((editTitle === undefined) || (editImage === undefined) || (editDescription === undefined) ||
+            (editTitle === '') || (editImage === '') || (editDescription === undefined)) {
             alert('Please enter information for all fields.');
             return;
-        } else { dispatch({ type: 'PUT_MOVIE', 
-                    payload: {
-                        id: singleMovie.id,
-                        title: editTitle,
-                        poster: editImage,
-                        description: editDescription,
-                    }, 
-                    goToMovieDetail: goToMovieDetail});
+        } else {
+            dispatch({
+                type: 'PUT_MOVIE',
+                payload: {
+                    id: singleMovie.id,
+                    title: editTitle,
+                    poster: editImage,
+                    description: editDescription,
+                },
+                goToMovieDetail: goToMovieDetail
+            });
         }
     }
 
@@ -60,48 +63,48 @@ const EditMovieForm = () => {
             </Grid>
             <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
                 <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
-                    <Button variant="contained" 
-                            className="Button"
-                            disabled
-                            size="large" 
-                            sx={{ mt: 3, mb: 1.5 }}>
+                    <Button variant="contained"
+                        className="Button"
+                        disabled
+                        size="large"
+                        sx={{ mt: 3, mb: 1.5 }}>
                         <VideoCallIcon />
                     </Button>
                     <Typography variant="h6">
                         Edit Movie: <span>{singleMovie.title}</span>
                     </Typography>
-                        <CardContent>
-                            <TextField
-                                label="Title"
-                                size="small"
-                                margin="normal"
-                                fullWidth
-                                required
-                                variant="outlined"
-                                value={editTitle}
-                                onChange={(event) => setEditTitle(event.target.value)}
-                            />
-                            <TextField
-                                label="Image URL for Poster"
-                                size="small"
-                                margin="normal"
-                                fullWidth
-                                required
-                                variant="outlined"
-                                value={editImage}
-                                onChange={(event) => setEditImage(event.target.value)}
-                            />
-                            <TextField
-                                label="Movie Description"
-                                multiline
-                                margin="normal"
-                                fullWidth
-                                required
-                                rows={6}
-                                value={editDescription}
-                                onChange={(event) => setEditDescription(event.target.value)}
-                            />
-                        </CardContent>
+                    <CardContent>
+                        <TextField
+                            label="Title"
+                            size="small"
+                            margin="normal"
+                            fullWidth
+                            required
+                            variant="outlined"
+                            value={editTitle}
+                            onChange={(event) => setEditTitle(event.target.value)}
+                        />
+                        <TextField
+                            label="Image URL for Poster"
+                            size="small"
+                            margin="normal"
+                            fullWidth
+                            required
+                            variant="outlined"
+                            value={editImage}
+                            onChange={(event) => setEditImage(event.target.value)}
+                        />
+                        <TextField
+                            label="Movie Description"
+                            multiline
+                            margin="normal"
+                            fullWidth
+                            required
+                            rows={6}
+                            value={editDescription}
+                            onChange={(event) => setEditDescription(event.target.value)}
+                        />
+                    </CardContent>
                     <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <Button variant="contained" onClick={goToMovieDetail} sx={{ mb: 2, ml: 2 }}>Cancel</Button>
                         <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={editMovie}>Save</Button>

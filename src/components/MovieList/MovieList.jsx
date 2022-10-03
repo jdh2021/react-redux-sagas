@@ -35,8 +35,8 @@ function MovieList() {
         <Button variant="contained" size="small" sx={{ mb: 1.5 }} onClick={() => history.push('/movieadd')}>
             <VideoCallIcon />
         </Button>
-        <Grid container justifyContent="center" sx={{mb: 3}}>
-            { movies.map(movie => {
+        <Grid container justifyContent="center" sx={{ mb: 3 }}>
+            {movies.map(movie => {
                 return (<Grid item xs={6} sm={4} md={3} lg={3} xl={2} sx={{ m: 1 }} key={movie.id}>
                     <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }} style={{ minHeight: 370 }}>
                         <CardContent>

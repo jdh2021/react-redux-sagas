@@ -45,102 +45,105 @@ const AddMovieForm = () => {
 
     // passed as part of payload to postMovie, routes to MovieList upon successful POST
     const goToMovieList = () => {
-        dispatch({ type: 'CLEAR_INPUT'});
+        dispatch({ type: 'CLEAR_INPUT' });
         history.push('/');
     }
 
     // dispatches 'POST_MOVIE' if inputs aren't empty, payload is movie object
     const postMovie = () => {
         console.log('in postMovie');
-        if ( inputTitle === '' || inputImage === '' || inputDescription === '' || selectedGenre === '') {
+        if (inputTitle === '' || inputImage === '' || inputDescription === '' || selectedGenre === '') {
             alert('Please complete all fields to add a movie.');
             return;
-        } else { dispatch({  type: 'POST_MOVIE', 
-                    payload: {
-                        title: inputTitle,
-                        poster: inputImage,
-                        description: inputDescription,
-                        genre_id: selectedGenre
-                    }, 
-                    goToMovieList: goToMovieList});
+        } else {
+            dispatch({
+                type: 'POST_MOVIE',
+                payload: {
+                    title: inputTitle,
+                    poster: inputImage,
+                    description: inputDescription,
+                    genre_id: selectedGenre
+                },
+                goToMovieList: goToMovieList
+            });
         }
     }
 
     return <div>
         <Grid container justifyContent="center">
-        <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
+            <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
+            </Grid>
+            <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
+                <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
+                    <Button variant="contained"
+                        className="Button"
+                        disabled
+                        size="large"
+                        sx={{ mt: 3, mb: 1.5 }}>
+                        <VideoCallIcon />
+                    </Button>
+                    <Typography variant="h6">
+                        Add A Movie
+                    </Typography>
+                    <CardContent>
+                        <TextField
+                            label="Movie Title"
+                            size="small"
+                            margin="normal"
+                            fullWidth
+                            required
+                            variant="outlined"
+                            value={inputTitle}
+                            onChange={dispatchTitle}
+                        />
+                        <TextField
+                            label="Image URL for Poster"
+                            size="small"
+                            margin="normal"
+                            fullWidth
+                            required
+                            variant="outlined"
+                            value={inputImage}
+                            onChange={dispatchImage}
+                        />
+                        <TextField
+                            label="Movie Description"
+                            multiline
+                            margin="normal"
+                            fullWidth
+                            required
+                            rows={6}
+                            value={inputDescription}
+                            onChange={dispatchDescription}
+                        />
+                        <TextField
+                            label="Movie Genre"
+                            select
+                            size="small"
+                            margin="normal"
+                            fullWidth
+                            required
+                            value={selectedGenre}
+                            onChange={dispatchGenre}
+                        >
+                            {allGenres.map(genre =>
+                                <MenuItem key={genre.id} value={genre.id}>
+                                    {genre.name}
+                                </MenuItem>
+                            )}
+                        </TextField>
+                    </CardContent>
+                    <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Back</Button>
+                        <Button variant="contained" onClick={() => dispatch({ type: 'CLEAR_INPUT' })} sx={{ mb: 2, ml: 2 }}>Clear</Button>
+                        <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={postMovie}>Save</Button>
+                    </CardActions>
+                </Card>
+            </Grid>
+            <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
+            </Grid>
         </Grid>
-        <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
-            <Card elevation={4} sx={{ backgroundColor: "#d6dde3" }}>
-            <Button variant="contained" 
-                    className="Button"
-                    disabled
-                    size="large" 
-                    sx={{ mt: 3, mb: 1.5 }}>
-                <VideoCallIcon />
-            </Button>
-            <Typography variant="h6">
-                Add A Movie
-            </Typography>
-                <CardContent>
-                    <TextField
-                        label="Movie Title"
-                        size="small"
-                        margin="normal"
-                        fullWidth
-                        required
-                        variant="outlined"
-                        value={inputTitle}
-                        onChange={dispatchTitle}
-                    />
-                    <TextField
-                        label="Image URL for Poster"
-                        size="small"
-                        margin="normal"
-                        fullWidth
-                        required
-                        variant="outlined"
-                        value={inputImage}
-                        onChange={dispatchImage}
-                    />
-                    <TextField
-                        label="Movie Description"
-                        multiline
-                        margin="normal"
-                        fullWidth
-                        required
-                        rows={6}
-                        value={inputDescription}
-                        onChange={dispatchDescription}
-                    />
-                    <TextField
-                        label="Movie Genre"
-                        select
-                        size="small"
-                        margin="normal"
-                        fullWidth
-                        required
-                        value={selectedGenre}
-                        onChange={dispatchGenre}
-                    >
-                        {allGenres.map(genre =>
-                            <MenuItem key={genre.id} value={genre.id}>
-                                {genre.name}
-                            </MenuItem>
-                        )}
-                    </TextField>
-                </CardContent>
-                <CardActions sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                    <Button variant="contained" onClick={() => history.push('/')} sx={{ mb: 2, ml: 2 }}>Back</Button>
-                    <Button variant="contained" onClick={() => dispatch({type: 'CLEAR_INPUT'})} sx={{ mb: 2, ml: 2 }}>Clear</Button>
-                    <Button variant="contained" sx={{ mb: 2, mr: 2 }} onClick={postMovie}>Save</Button>
-                </CardActions>
-            </Card>
-        </Grid>
-        <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
-        </Grid>
-    </Grid>
-</div>
+    </div>
 };
 
 export default AddMovieForm;

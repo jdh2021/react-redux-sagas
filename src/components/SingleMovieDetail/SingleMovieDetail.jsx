@@ -49,14 +49,14 @@ const SingleMovieDetail = () => {
     // dispatches action to store with payload of movieId and function goToMovieList
     const deleteFeedback = () => {
         console.log('in deleteFeedback. movieId is:', movieId);
-        dispatch({ type: 'DELETE_SINGLE_MOVIE', payload: movieId, goToMovieList : goToMovieList });
+        dispatch({ type: 'DELETE_SINGLE_MOVIE', payload: movieId, goToMovieList: goToMovieList });
     };
 
     return <Grid container justifyContent="center">
         <Grid item xs={1} sm={1} md={3} lg={4} xl={4}>
         </Grid>
         <Grid item xs={10} sm={10} md={6} lg={4} xl={4}>
-            <Card key={singleMovie.id} elevation={4} sx={{ backgroundColor: "#d6dde3", mb: 3}}>
+            <Card key={singleMovie.id} elevation={4} sx={{ backgroundColor: "#d6dde3", mb: 3 }}>
                 <CardHeader
                     title={singleMovie.title}
                 />
@@ -70,7 +70,7 @@ const SingleMovieDetail = () => {
                     image={singleMovie.poster}
                 />
                 <CardContent>
-                    <Typography style={{ wordWrap: "break-word" }}  variant="body2">
+                    <Typography style={{ wordWrap: "break-word" }} variant="body2">
                         {singleMovie.description}
                     </Typography>
                 </CardContent>
