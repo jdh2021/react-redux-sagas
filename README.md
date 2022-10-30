@@ -10,6 +10,8 @@ Movies Saga is an app that catalogs a user's favorite movies and showcases their
     <img src="movie-saga.gif" />
 </p>
 
+Try out the deployed version [here](https://react-redux-sagas.herokuapp.com/#/) on Heroku. 
+
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/)
